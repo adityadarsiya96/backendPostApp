@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Profile</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-rose-700 min-h-screen py-10 px-4">
+
+  <!-- Welcome Header -->
+  <div class="max-w-4xl mx-auto">
+    <div class="bg-rose-400 shadow-lg rounded-xl p-6 text-center mb-10">
+      <h1 class="text-3xl font-bold text-white">Welcome, <%= user.name %> 👋</h1>
+    </div>
+
+    <!-- Create Post Section -->
+    <div class="bg-white shadow-lg rounded-xl p-6 mb-10">
+      <h2 class="text-2xl font-semibold text-gray-800 mb-4 text-center">Create a Post</h2>
+      <form action="/post" method="post" class="flex flex-col gap-4">
+        <textarea
+          name="content"
+          rows="4"
+          class="p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
+          placeholder="What's on your mind?"
+          required
+        ></textarea>
+        <input
+          type="submit"
+          value="Create New Post"
+          class="bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition duration-300 cursor-pointer"
+        />
+      </form>
+
+      <!-- Logout Button -->
+      <div class="text-center mt-6">
+        <a
+          href="/logout"
+          class="inline-block bg-red-500 text-white px-6 py-2 rounded-lg hover:bg-red-600 transition duration-300"
+        >
+          Logout
+        </a>
+      </div>
+    </div>
+
+
+    <div class="mb-10">
+      <h3 class="text-2xl text-white font-semibold mb-6">Your Posts</h3>
+      <div class="flex flex-col gap-4">
+        <% user.posts.reverse().forEach(function(post) { %>
+  <div class="bg-white border-l-4 border-rose-500 shadow p-4 rounded-lg">
+    <h4 class="text-lg font-semibold text-rose-600">@<%= user.username %></h4>
+    <p class="text-gray-800 mt-1"><%= post.content %></p>
+    <small class="text-blue-800"><%=post.likes.length%> Likes</small>
+    <div class="btn flex mt-2 space-x-4">
+      <a class="text-blue-800 hover:underline" href="/like/<%= post._id %>">
+        <%= post.likes.indexOf(user._id)== -1 ? "Like":"Unlike"%>
+
+      </a>
+      <a class="text-sky-900 hover:underline" href="/edit/<%= post._id %>">Edit</a>
+    </div>
+  </div>
+<% }) %>
+
+
+
+
+       
+      
+
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>
+
+
+
